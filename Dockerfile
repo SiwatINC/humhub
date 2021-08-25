@@ -1,0 +1,7 @@
+FROM ghcr.io/siwatinc/nginx-pagespeed-mariadb:latest
+RUN apt-get update && apt-get -y install unzip cron
+RUN rm -v /initializer/initialize-builtin.sh && echo '* * * * * /usr/bin/php7.3 /config/www/humhub/protected/yii queue/run >/dev/null 2>&1' > /var/spool/cron/crontabs/root && echo '* * * * * /usr/bin/php7.3 /config/www/humhub/protected/yii cron/run >/dev/null 2>&1' >> /var/spool/cron/crontabs/root && crontab /var/spool/cron/crontabs/root
+RUN cd /altscreen-source && wget https://www.humhub.com/download/package/humhub-1.9.0.zip && unzip ./humhub-1.9.0.zip && mv -v ./humhub-1.9.0 /web-source && rm -v ./humhub-1.9.0.zip
+ADD ./initialize-builtin.sh /initializer/initialize-builtin.sh
+ADD ./initializedb.sql /initializer/initializedb.sql
+CMD chmod +x /initializer/initialize-builtin.sh && /initializer/initialize-builtin.sh && service php7.3-fpm start && nginx
