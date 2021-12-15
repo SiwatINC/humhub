@@ -18,6 +18,7 @@ if [ -z "$(ls -A /config)" ]; then
    cp /initializer/mime.types /config/nginx/mime.types
    cp /initializer/default /config/nginx/site-confs/default
    cp -rv /web-source/* /config/www/
+   chmod +x /config/www/protected/yii
    service mysql start
    cat /initializer/initializedb.sql | mysql
    cron &
