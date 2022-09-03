@@ -25,7 +25,6 @@ if [ -z "$(ls -A /config)" ]; then
    crontab /var/spool/cron/crontabs/root
    echo "; Add any php.ini entry here to overwrite any php.ini configuration" > /config/php/php-overwrite.ini
    echo "Please replace yourdomain.com with your domain in /config/nginx/site-confs/default to enable pagespeed."
-   exit 0
 else
    echo "Already Initiated, Starting NGINX PageSpeed and PHP7.4"
    mkdir -p /var/cache/nginx | :
@@ -34,5 +33,8 @@ else
    cat /config/php/php-overwrite.ini >> /etc/php/7.3/fpm/php.ini
    cron &
    crontab /var/spool/cron/crontabs/root
-   exit 0
 fi
+
+service php7.4-fpm start
+nginx
+exit 0

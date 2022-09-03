@@ -5,4 +5,4 @@ RUN wget https://www.humhub.com/download/package/humhub-1.9.0.zip && unzip ./hum
 ADD ./initialize-builtin.sh /initializer/initialize-builtin.sh
 ADD ./initializedb.sql /initializer/initializedb.sql
 ADD ./default /initializer/default
-CMD chmod +x /initializer/initialize-builtin.sh && /initializer/initialize-builtin.sh && service php7.4-fpm start && nginx && tail -f /dev/null
+CMD chmod +x /initializer/initialize-builtin.sh && /initializer/initialize-builtin.sh
