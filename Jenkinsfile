@@ -10,7 +10,7 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    image = docker.build("siwatinc/humhub:latest")
+                    image = docker.build("siwatinc/humhub:latest","./ --no-cache")
                 }
             }
         }
